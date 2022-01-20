@@ -1,0 +1,20 @@
+#define readA	GPIO_ReadInputPin(GPIOC,GPIO_PIN_6)
+#define readB	GPIO_ReadInputPin(GPIOE,GPIO_PIN_5)
+
+uint16_t minule=5;	//zaznamenání pozice enkodéru (0 low, 1 high,5 přechod)
+
+
+void process_enc(void){
+	if(readA == RESET && readB == RESET){
+		minule=0;
+	}
+	if(readA != RESET && readB != RESET){
+		minule=1;
+	}
+	if((minule==1 && readA!=RESET && readB == RESET) ||(minule==0 && readA==RESET && readB != RESET)){
+		x++;
+	}
+	if((minule==1 && readA==RESET && readB != RESET)||(minule==0 && readA!=RESET && readB == RESET)){
+		x--;
+	}
+}
